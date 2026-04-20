@@ -9,6 +9,7 @@ description = "NUMA per-node process memory tracker and plotter"
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
+  "black>=24.0",
   "matplotlib>=3.7",
 ]
 

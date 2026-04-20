@@ -80,11 +80,27 @@ def parse_private_mb_per_node(numastat_output: str) -> dict[int, float]:
 
 
 def main():
-    ap = argparse.ArgumentParser(description="Track per-node Private memory for hot_cold via numastat -p")
-    ap.add_argument("--proc", default="hot_cold", help="Process name (default: hot_cold)")
-    ap.add_argument("--interval", type=float, default=1.0, help="Sampling interval seconds (default: 1)")
-    ap.add_argument("--duration", type=float, default=60.0, help="Total duration seconds (default: 60)")
-    ap.add_argument("--out", default="hot_cold_private_per_node.png", help="Output plot filename")
+    ap = argparse.ArgumentParser(
+        description="Track per-node Private memory for hot_cold via numastat -p"
+    )
+    ap.add_argument(
+        "--proc", default="hot_cold", help="Process name (default: hot_cold)"
+    )
+    ap.add_argument(
+        "--interval",
+        type=float,
+        default=1.0,
+        help="Sampling interval seconds (default: 1)",
+    )
+    ap.add_argument(
+        "--duration",
+        type=float,
+        default=60.0,
+        help="Total duration seconds (default: 60)",
+    )
+    ap.add_argument(
+        "--out", default="hot_cold_private_per_node.png", help="Output plot filename"
+    )
     ap.add_argument("--csv", default=None, help="Optional CSV output filename")
     args = ap.parse_args()
 
@@ -100,9 +116,13 @@ def main():
     # Lock onto the first PID we observe; do NOT follow restarts.
     locked_pid = get_pid(args.proc)
     if locked_pid is None:
-        print(f"[warn] Process '{args.proc}' not running at start. Will wait up to {args.duration}s for it to appear.")
+        print(
+            f"[warn] Process '{args.proc}' not running at start. Will wait up to {args.duration}s for it to appear."
+        )
     else:
-        print(f"Monitoring {args.proc} (PID {locked_pid}) using numastat -p, tracking Private (MB)")
+        print(
+            f"Monitoring {args.proc} (PID {locked_pid}) using numastat -p, tracking Private (MB)"
+        )
 
     stopped_reason = None
     oom_terminated = False
@@ -119,11 +139,15 @@ def main():
                 if locked_pid is None:
                     time.sleep(args.interval)
                     continue
-                print(f"[info] Found {args.proc} (PID {locked_pid}). Starting sampling.")
+                print(
+                    f"[info] Found {args.proc} (PID {locked_pid}). Starting sampling."
+                )
 
             # If locked PID is gone, stop recording (treat as OOM for visualization purposes).
             if not pid_is_alive(locked_pid):
-                stopped_reason = f"process '{args.proc}' (PID {locked_pid}) exited (assume OOM)"
+                stopped_reason = (
+                    f"process '{args.proc}' (PID {locked_pid}) exited (assume OOM)"
+                )
                 oom_terminated = True
                 break
 
