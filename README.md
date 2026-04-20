@@ -9,6 +9,13 @@ usage from `numastat -p` and writing a plot, with optional CSV output.
 pip install .
 ```
 
+To install `numastat` on Ubuntu:
+
+```bash
+chmod +x scripts/install_ubuntu_numastat.sh
+sudo ./scripts/install_ubuntu_numastat.sh
+```
+
 For development:
 
 ```bash
