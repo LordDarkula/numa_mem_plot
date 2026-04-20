@@ -9,11 +9,11 @@ usage from `numastat -p` and writing a plot, with optional CSV output.
 pip install .
 ```
 
-To install `numastat` on Ubuntu:
+To install Ubuntu prerequisites (`pip`, `venv`, and `numastat`):
 
 ```bash
-chmod +x scripts/install_ubuntu_numastat.sh
-sudo ./scripts/install_ubuntu_numastat.sh
+chmod +x scripts/install_ubuntu_prereqs.sh
+sudo ./scripts/install_ubuntu_prereqs.sh
 ```
 
 For development:
